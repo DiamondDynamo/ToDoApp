@@ -1,36 +1,149 @@
 package com.juniata.ifpizza.todoapp;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class SplashScreen extends AppCompatActivity {
 
+
+
+    long listNum;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListView myListView = findViewById(R.id.listsList);
-        ArrayList<String> myStringArray1 = new ArrayList<String>();
+        final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
+//        ListDbHelper dbHelper = new ListDbHelper(getApplicationContext());
+//        SQLiteDatabase db = dbHelper.getWritableDatabase();
+//        dbHelper.onCreate(db);
+
+        refreshDisplay();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+                SQLiteDatabase db = myDbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+
+                listNum = sharedPreferences.getLong("listNumber", 0) + 1;
+
+                values.put(ListContract.ListEntry.COLUMN_LIST_NAME, "List #" + listNum);
+
+                long newRowId = db.insert(ListContract.ListEntry.TABLE_NAME, null, values);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putLong("listNumber", newRowId);
+                editor.apply();
+
+                String result;
+
+                if (newRowId != -1)
+                {
+                    result = "Created List #" + newRowId;
+                }
+                else
+                {
+                    result = "ERROR";
+                }
+
+                Snackbar.make(findViewById(R.id.displayLists), result, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+
+                refreshDisplay();
 
 
             }
         });
+
+    }
+
+    public void refreshDisplay(){
+
+        ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+        SQLiteDatabase db = myDbHelper.getWritableDatabase();
+
+        String[] projection = {
+                ListContract.ListEntry.COLUMN_LIST_NAME
+        };
+
+        String[] bind = {
+                ListContract.ListEntry._ID,
+                ListContract.ListEntry.COLUMN_LIST_NAME
+        };
+
+        Cursor cursor = db.query(ListContract.ListEntry.TABLE_NAME, bind, null, null, null, null, ListContract.ListEntry._ID + " ASC");
+
+        int [] to = new int[]{R.id.listName};
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.row_item, cursor, projection, to, 0);
+
+        final ListView listView = findViewById(R.id.listsList);
+        listView.setAdapter(adapter);
+
+        TextView emptyView = findViewById(R.id.noLists);
+        listView.setEmptyView(emptyView);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_lists_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+
+
+        if (id == R.id.deleteDb){
+            ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+            SQLiteDatabase db = myDbHelper.getWritableDatabase();
+            db.delete(ListContract.ListEntry.TABLE_NAME, "1", null);
+
+            Snackbar.make(findViewById(R.id.displayLists), "Database cleared", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else if (id == R.id.resetDb){
+            ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+            SQLiteDatabase db = myDbHelper.getWritableDatabase();
+            myDbHelper.resetDb(db);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong("listNumber", 0);
+            editor.apply();
+
+            Snackbar.make(findViewById(R.id.displayLists), "Database reset", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+
+
+
+        refreshDisplay();
+
+        return true;
     }
 
 }
