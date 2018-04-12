@@ -11,4 +11,5 @@
     <string name="lists_empty">No Lists Found</string>
     <string name="emptyFile">Empty File</string>
     <string name="title_activity_list_contents">ListContents</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

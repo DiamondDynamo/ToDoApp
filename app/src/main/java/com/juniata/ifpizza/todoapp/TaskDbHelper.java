@@ -13,7 +13,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     public static final String INT_TYPE = " INTEGER";
     public static final String COM_SEP = ",";
 
-    public static final String SQL_CREATE_TASK = "CREATE TABLE " + TaskContract.TaskEntry.TABLE_NAME + " (" + TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1" + COM_SEP + TaskContract.TaskEntry.COLUMN_TASK_NAME + TEXT_TYPE + COM_SEP + TaskContract.TaskEntry.COLUMN_DESCRIPTION + TEXT_TYPE + COM_SEP + TaskContract.TaskEntry.COLUMN_COMP_FLAG + BOOL_TYPE + COM_SEP + TaskContract.TaskEntry.COLUMN_LIST_ID + INT_TYPE + COM_SEP + "FOREIGN KEY(" + TaskContract.TaskEntry.COLUMN_LIST_ID + ") REFERENCES " + ListContract.ListEntry.TABLE_NAME + "(" + ListContract.ListEntry._ID + ")";
+    public static final String SQL_CREATE_TASK = "CREATE TABLE " + TaskContract.TaskEntry.TABLE_NAME + " ( " + TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1" + COM_SEP + TaskContract.TaskEntry.COLUMN_TASK_NAME + TEXT_TYPE + COM_SEP + TaskContract.TaskEntry.COLUMN_DESCRIPTION + TEXT_TYPE + COM_SEP + TaskContract.TaskEntry.COLUMN_COMP_FLAG + BOOL_TYPE + COM_SEP + TaskContract.TaskEntry.COLUMN_LIST_ID + INT_TYPE + COM_SEP + "FOREIGN KEY(" + TaskContract.TaskEntry.COLUMN_LIST_ID + ") REFERENCES " + ListContract.ListEntry.TABLE_NAME + "(" + ListContract.ListEntry._ID + "))";
 
     public static final String SQL_DELETE = "DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE_NAME;
 

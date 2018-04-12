@@ -2,6 +2,7 @@ package com.juniata.ifpizza.todoapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
     long listNum;
+    static final String LISTNUM = "listnum";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -38,7 +41,6 @@ public class SplashScreen extends AppCompatActivity {
 //        ListDbHelper dbHelper = new ListDbHelper(getApplicationContext());
 //        SQLiteDatabase db = dbHelper.getWritableDatabase();
 //        dbHelper.onCreate(db);
-
         refreshDisplay();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -97,7 +99,7 @@ public class SplashScreen extends AppCompatActivity {
 
         Cursor cursor = db.query(ListContract.ListEntry.TABLE_NAME, bind, null, null, null, null, ListContract.ListEntry._ID + " ASC");
 
-        int [] to = new int[]{R.id.listName};
+        int [] to = new int[]{R.id.itemName};
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.row_item, cursor, projection, to, 0);
 
@@ -106,6 +108,22 @@ public class SplashScreen extends AppCompatActivity {
 
         TextView emptyView = findViewById(R.id.noLists);
         listView.setEmptyView(emptyView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                Cursor cursor1 = (Cursor) adapterView.getItemAtPosition(position);
+
+                int listNumber = (int) cursor1.getInt(cursor1.getColumnIndex(ListContract.ListEntry._ID));
+
+                Intent intent = new Intent(getApplicationContext(), ListContents.class);
+                intent.putExtra(LISTNUM, listNumber);
+                setResult(RESULT_OK, intent);
+                startActivity(intent);
+
+            }
+        });
     }
 
     @Override

@@ -22,7 +22,12 @@
         <activity
             android:name=".ListContents"
             android:label="@string/title_activity_list_contents"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.juniata.ifpizza.todoapp.SplashScreen" />
+        </activity>
     </application>
 
 </manifest>

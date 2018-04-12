@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listName"
+            android:id="@+id/itemName"
             android:padding="10dp"
             android:text="@string/lists_empty"/>
     </LinearLayout>
