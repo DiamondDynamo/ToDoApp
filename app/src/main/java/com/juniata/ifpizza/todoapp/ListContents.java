@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ public class ListContents extends AppCompatActivity {
         ActiveList = getIntent().getIntExtra("listnum", 0);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.taskComplete);
 
         refreshDisplay();
 
@@ -58,6 +61,9 @@ public class ListContents extends AppCompatActivity {
                 refreshDisplay();
             }
         });
+
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -78,9 +84,9 @@ public class ListContents extends AppCompatActivity {
 
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE_NAME, bind, null, null, null, null, TaskContract.TaskEntry._ID + " ASC");
 
-        int [] to = new int[]{R.id.itemName};
+        int [] to = new int[]{R.id.taskName};
 
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.row_item, cursor, projection, to, 0);
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.task_item, cursor, projection, to, 0);
 
         final ListView taskView = findViewById(R.id.tasksList);
         taskView.setAdapter(adapter);
