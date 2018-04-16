@@ -35,9 +35,6 @@ public class SplashScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-//        ListDbHelper dbHelper = new ListDbHelper(getApplicationContext());
-//        SQLiteDatabase db = dbHelper.getWritableDatabase();
-//        dbHelper.onCreate(db);
         refreshDisplay();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

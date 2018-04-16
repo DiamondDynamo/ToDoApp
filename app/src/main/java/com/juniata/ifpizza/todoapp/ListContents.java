@@ -46,7 +46,7 @@ public class ListContents extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TaskDbHelper myDbHelper = new TaskDbHelper(getApplicationContext());
+                GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
                 SQLiteDatabase db = myDbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
 
@@ -73,10 +73,11 @@ public class ListContents extends AppCompatActivity {
 
     public void refreshDisplay(){
 
-        TaskDbHelper myDbHelper = new TaskDbHelper(getApplicationContext());
+        GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
         SQLiteDatabase db = myDbHelper.getWritableDatabase();
 
         String[] projection = {
+                TaskContract.TaskEntry._ID,
                 TaskContract.TaskEntry.COLUMN_TASK_NAME
         };
 
@@ -85,7 +86,9 @@ public class ListContents extends AppCompatActivity {
                 TaskContract.TaskEntry.COLUMN_TASK_NAME
         };
 
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE_NAME, bind, null, null, null, null, TaskContract.TaskEntry._ID + " ASC");
+//        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE_NAME, bind, null, null, null, null, TaskContract.TaskEntry._ID + " ASC");
+
+        Cursor cursor = db.rawQuery("SELECT " + TaskContract.TaskEntry.COLUMN_TASK_NAME + ", " + TaskContract.TaskEntry._ID + " FROM " +  TaskContract.TaskEntry.TABLE_NAME + " WHERE " + TaskContract.TaskEntry.COLUMN_LIST_ID + " = " + ActiveList + " GROUP BY " + TaskContract.TaskEntry.COLUMN_TASK_NAME + " ORDER BY " + TaskContract.TaskEntry._ID + " ASC", null);
 
         int [] to = new int[]{R.id.taskName};
 
