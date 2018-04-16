@@ -17,9 +17,10 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-
 import java.util.List;
 
+
+//**********LIST**********
 public class ListContents extends AppCompatActivity {
 
     long taskNum;
@@ -45,7 +46,7 @@ public class ListContents extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
+                TaskDbHelper myDbHelper = new TaskDbHelper(getApplicationContext());
                 SQLiteDatabase db = myDbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
 
@@ -72,28 +73,19 @@ public class ListContents extends AppCompatActivity {
 
     public void refreshDisplay(){
 
-        GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
+        TaskDbHelper myDbHelper = new TaskDbHelper(getApplicationContext());
         SQLiteDatabase db = myDbHelper.getWritableDatabase();
 
         String[] projection = {
-                TaskContract.TaskEntry._ID,
                 TaskContract.TaskEntry.COLUMN_TASK_NAME
         };
 
         String[] bind = {
                 TaskContract.TaskEntry._ID,
-                TaskContract.TaskEntry.COLUMN_TASK_NAME,
-                TaskContract.TaskEntry.COLUMN_LIST_ID
+                TaskContract.TaskEntry.COLUMN_TASK_NAME
         };
 
-        String listString = Integer.toString(ActiveList);
-
-        String[] selectArgs = {
-                TaskContract.TaskEntry.COLUMN_LIST_ID,
-                listString
-        };
-
-        Cursor cursor = db.rawQuery("SELECT " + TaskContract.TaskEntry.COLUMN_TASK_NAME + ", " + TaskContract.TaskEntry._ID + " FROM " + TaskContract.TaskEntry.TABLE_NAME + " WHERE " + TaskContract.TaskEntry.COLUMN_LIST_ID + " = " + ActiveList + " GROUP BY " + TaskContract.TaskEntry.COLUMN_TASK_NAME + " ORDER BY " + TaskContract.TaskEntry._ID + " ASC", null);
+        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE_NAME, bind, null, null, null, null, TaskContract.TaskEntry._ID + " ASC");
 
         int [] to = new int[]{R.id.taskName};
 
@@ -120,13 +112,6 @@ public class ListContents extends AppCompatActivity {
 //
 //            }
 //        });
-    }
-
-    public void onCheckboxClicked(View view){
-        boolean checked = ((CheckBox) view).isChecked();
-        if(checked){
-            //TODO: Toggle flag
-        }
     }
 
 }
