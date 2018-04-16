@@ -35,16 +35,13 @@ public class SplashScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-//        ListDbHelper dbHelper = new ListDbHelper(getApplicationContext());
-//        SQLiteDatabase db = dbHelper.getWritableDatabase();
-//        dbHelper.onCreate(db);
         refreshDisplay();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+                GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
                 SQLiteDatabase db = myDbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
 
@@ -76,7 +73,7 @@ public class SplashScreen extends AppCompatActivity {
     //Refresh Display With Updated Database
     public void refreshDisplay(){
 
-        ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+        GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
         SQLiteDatabase db = myDbHelper.getWritableDatabase();
 
         String[] projection = {
@@ -129,14 +126,14 @@ public class SplashScreen extends AppCompatActivity {
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         if (id == R.id.deleteDb){
-            ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+            GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
             SQLiteDatabase db = myDbHelper.getWritableDatabase();
             db.delete(ListContract.ListEntry.TABLE_NAME, "1", null);
 
             Snackbar.make(findViewById(R.id.displayLists), "Database cleared", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         else if (id == R.id.resetDb){
-            ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+            GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
             SQLiteDatabase db = myDbHelper.getWritableDatabase();
             myDbHelper.resetDb(db);
             SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -1,4 +1,5 @@
 package com.juniata.ifpizza.todoapp;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import java.util.List;
+
 
 //**********LIST**********
 public class ListContents extends AppCompatActivity {
@@ -34,36 +37,47 @@ public class ListContents extends AppCompatActivity {
         ActiveList = getIntent().getIntExtra("listnum", 0);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+
         final CheckBox checkBox = (CheckBox) findViewById(R.id.taskComplete);
+
         refreshDisplay();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TaskDbHelper myDbHelper = new TaskDbHelper(getApplicationContext());
+                GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
                 SQLiteDatabase db = myDbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
+
                 taskNum = sharedPreferences.getLong("taskNumber", 0) + 1;
+
                 values.put(TaskContract.TaskEntry.COLUMN_TASK_NAME, "Task #" + taskNum);
                 values.put(TaskContract.TaskEntry.COLUMN_LIST_ID, ActiveList);
+
                 long newRowId = db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values);
+
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putLong("taskNumber", newRowId);
                 editor.apply();
+
                 refreshDisplay();
             }
         });
+
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
     public void refreshDisplay(){
 
-        TaskDbHelper myDbHelper = new TaskDbHelper(getApplicationContext());
+        GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
         SQLiteDatabase db = myDbHelper.getWritableDatabase();
 
         String[] projection = {
+                TaskContract.TaskEntry._ID,
                 TaskContract.TaskEntry.COLUMN_TASK_NAME
         };
 
@@ -72,7 +86,9 @@ public class ListContents extends AppCompatActivity {
                 TaskContract.TaskEntry.COLUMN_TASK_NAME
         };
 
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE_NAME, bind, null, null, null, null, TaskContract.TaskEntry._ID + " ASC");
+//        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE_NAME, bind, null, null, null, null, TaskContract.TaskEntry._ID + " ASC");
+
+        Cursor cursor = db.rawQuery("SELECT " + TaskContract.TaskEntry.COLUMN_TASK_NAME + ", " + TaskContract.TaskEntry._ID + " FROM " +  TaskContract.TaskEntry.TABLE_NAME + " WHERE " + TaskContract.TaskEntry.COLUMN_LIST_ID + " = " + ActiveList + " GROUP BY " + TaskContract.TaskEntry.COLUMN_TASK_NAME + " ORDER BY " + TaskContract.TaskEntry._ID + " ASC", null);
 
         int [] to = new int[]{R.id.taskName};
 
