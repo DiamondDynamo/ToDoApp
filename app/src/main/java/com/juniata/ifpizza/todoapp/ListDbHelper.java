@@ -1,17 +1,24 @@
 package com.juniata.ifpizza.todoapp;
-
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+//**********LIST DATABASE**********
 public class ListDbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "list.db";
     public static final String TEXT_TYPE = " TEXT";
     public static final String COM_SEP = ", ";
-    public static final String SQL_CREATE_LIST = "CREATE TABLE " + ListContract.ListEntry.TABLE_NAME + " (" + ListContract.ListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1" +  COM_SEP + ListContract.ListEntry.COLUMN_LIST_NAME + TEXT_TYPE + " )";
+    public static final String SQL_CREATE_LIST = "CREATE TABLE "
+            + ListContract.ListEntry.TABLE_NAME
+            + " ("
+            + ListContract.ListEntry._ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1"
+            +  COM_SEP
+            + ListContract.ListEntry.COLUMN_LIST_NAME
+            + TEXT_TYPE
+            + " )";
 
     public static final String SQL_DELETE = "DROP TABLE IF EXISTS " + ListContract.ListEntry.TABLE_NAME;
     public static final String SQL_KEY_RESET = "UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE name = '" + ListContract.ListEntry.TABLE_NAME + "'";

@@ -22,10 +22,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+//**********Start Up**********
 public class SplashScreen extends AppCompatActivity {
-
-
-
     long listNum;
     static final String LISTNUM = "listnum";
 
@@ -37,7 +35,6 @@ public class SplashScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-
 //        ListDbHelper dbHelper = new ListDbHelper(getApplicationContext());
 //        SQLiteDatabase db = dbHelper.getWritableDatabase();
 //        dbHelper.onCreate(db);
@@ -60,7 +57,6 @@ public class SplashScreen extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putLong("listNumber", newRowId);
                 editor.apply();
-
                 String result;
 
                 if (newRowId != -1)
@@ -71,18 +67,13 @@ public class SplashScreen extends AppCompatActivity {
                 {
                     result = "ERROR";
                 }
-
                 Snackbar.make(findViewById(R.id.displayLists), result, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-
                 refreshDisplay();
-
-
             }
         });
-
     }
 
+    //Refresh Display With Updated Database
     public void refreshDisplay(){
 
         ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
@@ -135,9 +126,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
-
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-
 
         if (id == R.id.deleteDb){
             ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
@@ -153,15 +142,9 @@ public class SplashScreen extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putLong("listNumber", 0);
             editor.apply();
-
             Snackbar.make(findViewById(R.id.displayLists), "Database reset", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
-
-
-
         refreshDisplay();
-
         return true;
     }
-
 }

@@ -1,8 +1,7 @@
 package com.juniata.ifpizza.todoapp;
-
-
 import android.provider.BaseColumns;
 
+//**********TASK ITEM**********
 public final class TaskContract {
 
     public TaskContract() {

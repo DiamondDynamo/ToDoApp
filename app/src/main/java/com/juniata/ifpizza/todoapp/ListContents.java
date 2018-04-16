@@ -1,5 +1,4 @@
 package com.juniata.ifpizza.todoapp;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+//**********LIST**********
 public class ListContents extends AppCompatActivity {
 
     long taskNum;
@@ -34,9 +34,7 @@ public class ListContents extends AppCompatActivity {
         ActiveList = getIntent().getIntExtra("listnum", 0);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-
         final CheckBox checkBox = (CheckBox) findViewById(R.id.taskComplete);
-
         refreshDisplay();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -46,24 +44,16 @@ public class ListContents extends AppCompatActivity {
                 TaskDbHelper myDbHelper = new TaskDbHelper(getApplicationContext());
                 SQLiteDatabase db = myDbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
-
                 taskNum = sharedPreferences.getLong("taskNumber", 0) + 1;
-
                 values.put(TaskContract.TaskEntry.COLUMN_TASK_NAME, "Task #" + taskNum);
                 values.put(TaskContract.TaskEntry.COLUMN_LIST_ID, ActiveList);
-
                 long newRowId = db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values);
-
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putLong("taskNumber", newRowId);
                 editor.apply();
-
                 refreshDisplay();
             }
         });
-
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
