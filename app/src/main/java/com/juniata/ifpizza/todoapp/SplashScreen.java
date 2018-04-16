@@ -47,7 +47,7 @@ public class SplashScreen extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+                GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
                 SQLiteDatabase db = myDbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
 
@@ -85,7 +85,7 @@ public class SplashScreen extends AppCompatActivity {
 
     public void refreshDisplay(){
 
-        ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+        GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
         SQLiteDatabase db = myDbHelper.getWritableDatabase();
 
         String[] projection = {
@@ -140,14 +140,14 @@ public class SplashScreen extends AppCompatActivity {
 
 
         if (id == R.id.deleteDb){
-            ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+            GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
             SQLiteDatabase db = myDbHelper.getWritableDatabase();
             db.delete(ListContract.ListEntry.TABLE_NAME, "1", null);
 
             Snackbar.make(findViewById(R.id.displayLists), "Database cleared", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         else if (id == R.id.resetDb){
-            ListDbHelper myDbHelper = new ListDbHelper(getApplicationContext());
+            GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
             SQLiteDatabase db = myDbHelper.getWritableDatabase();
             myDbHelper.resetDb(db);
             SharedPreferences.Editor editor = sharedPreferences.edit();
