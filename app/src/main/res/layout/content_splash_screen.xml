@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.juniata.ifpizza.todoapp.SplashScreen"
+    tools:context="com.juniata.ifpizza.todoapp.SplashScreenActivity"
     tools:showIn="@layout/activity_splash_screen">
 
     <RelativeLayout
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.juniata.ifpizza.todoapp.SplashScreen"
+        tools:context="com.juniata.ifpizza.todoapp.SplashScreenActivity"
         android:id="@+id/displayLists">
 
         <ListView

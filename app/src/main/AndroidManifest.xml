@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenActivity"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,11 +22,20 @@
         <activity
             android:name=".ListContents"
             android:label="@string/title_activity_list_contents"
-            android:parentActivityName=".SplashScreen"
+            android:parentActivityName=".SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.juniata.ifpizza.todoapp.SplashScreen" />
+                android:value="com.juniata.ifpizza.todoapp.SplashScreenActivity" />
+        </activity>
+        <activity
+            android:name=".TaskDetails"
+            android:label="@string/title_activity_task_details"
+            android:parentActivityName=".ListContents"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.juniata.ifpizza.todoapp.ListContents" />
         </activity>
     </application>
 

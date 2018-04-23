@@ -23,7 +23,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 //**********Start Up**********
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
     long listNum;
     static final String LISTNUM = "listnum";
 

@@ -38,7 +38,10 @@ public class ListContents extends AppCompatActivity {
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
-        final CheckBox checkBox = (CheckBox) findViewById(R.id.taskComplete);
+//        final CheckBox checkBox = (CheckBox) findViewById(R.id.taskComplete);
+
+        final ListView listView = (ListView) findViewById(R.id.tasksList);
+        TextView emptyView = findViewById(R.id.noTasks);
 
         refreshDisplay();
 
@@ -65,6 +68,21 @@ public class ListContents extends AppCompatActivity {
             }
         });
 
+
+        listView.setEmptyView(emptyView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+
+                int taskNumber = (int) cursor.getInt(cursor.getColumnIndex(TaskContract.TaskEntry._ID));
+                Intent intent = new Intent(getApplicationContext(), TaskDetails.class);
+                intent.putExtra(TASKNUM, taskNumber);
+                setResult(RESULT_OK, intent);
+                startActivity(intent);
+            }
+        });
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

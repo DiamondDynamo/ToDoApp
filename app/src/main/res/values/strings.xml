@@ -12,4 +12,7 @@
     <string name="emptyFile">Empty File</string>
     <string name="title_activity_list_contents">ListContents</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_task_details">TaskDetails</string>
+
+    <string name="description">Description</string>
 </resources>
