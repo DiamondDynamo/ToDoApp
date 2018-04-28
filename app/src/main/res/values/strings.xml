@@ -6,6 +6,9 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+
+
     <string name="title_activity_splash_screen">Select a List</string>
 
     <string name="lists_empty">No Lists Found</string>
