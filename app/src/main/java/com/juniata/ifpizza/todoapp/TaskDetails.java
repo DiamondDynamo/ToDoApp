@@ -24,7 +24,7 @@ public class TaskDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ActiveList = getIntent().getIntExtra("tasknum", 0);
 

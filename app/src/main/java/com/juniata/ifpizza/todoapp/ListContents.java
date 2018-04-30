@@ -87,12 +87,8 @@ public class ListContents extends AppCompatActivity {
 
 
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-        });
-
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
