@@ -56,7 +56,9 @@ public class ListContents extends AppCompatActivity {
 
                 taskNum = sharedPreferences.getLong("taskNumber", 0) + 1;
 
-                values.put(TaskContract.TaskEntry.COLUMN_TASK_NAME, "Task #" + taskNum);
+                String name = "Task #" + taskNum;
+
+                values.put(TaskContract.TaskEntry.COLUMN_TASK_NAME, name);
                 values.put(TaskContract.TaskEntry.COLUMN_LIST_ID, ActiveList);
 
                 long newRowId = db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values);
