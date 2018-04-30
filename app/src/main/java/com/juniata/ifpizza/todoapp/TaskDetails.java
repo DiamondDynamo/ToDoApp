@@ -45,6 +45,7 @@ public class TaskDetails extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
+        return true;
     }
 
 }

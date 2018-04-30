@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class ListContents extends AppCompatActivity {
 
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
-//        final CheckBox checkBox = (CheckBox) findViewById(R.id.taskComplete);
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.taskComplete);
 
         final ListView listView = (ListView) findViewById(R.id.tasksList);
         TextView emptyView = findViewById(R.id.noTasks);
@@ -82,6 +83,12 @@ public class ListContents extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 startActivity(intent);
             }
+        });
+
+
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
         });
 
 
