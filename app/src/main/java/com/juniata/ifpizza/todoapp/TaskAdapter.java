@@ -9,7 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-//**********Charlie Bein**********
+//**********Charley Bein**********
 //*********Timothy Benson*********
 //**********Joe Maskell***********
 //***********Ben Tipton***********
@@ -24,15 +24,17 @@ public class TaskAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, final Cursor cursor) {
         TextView taskText = view.findViewById(R.id.taskName);
-        CheckBox taskCheck = view.findViewById(R.id.taskComplete);
+        final CheckBox taskCheck = view.findViewById(R.id.taskComplete);
         taskText.setText(cursor.getString(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_TASK_NAME)));
 
-        if (cursor.getInt(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_COMP_FLAG)) == 0) {
-            taskCheck.setChecked(false);
+        taskCheck.setOnCheckedChangeListener(null);
+
+        if (cursor.getInt(cursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_COMP_FLAG)) != 0) {
+            taskCheck.setChecked(true);
         }
 
         else {
-            taskCheck.setChecked(true);
+            taskCheck.setChecked(false);
         }
 
         taskCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

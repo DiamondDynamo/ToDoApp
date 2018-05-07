@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-//**********Charlie Bein**********
+//**********Charley Bein**********
 //*********Timothy Benson*********
 //**********Joe Maskell***********
 //***********Ben Tipton***********

@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-//**********Charlie Bein**********
+//**********Charley Bein**********
 //*********Timothy Benson*********
 //**********Joe Maskell***********
 //***********Ben Tipton***********

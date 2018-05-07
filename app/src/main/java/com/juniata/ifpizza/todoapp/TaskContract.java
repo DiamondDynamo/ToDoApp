@@ -1,7 +1,7 @@
 package com.juniata.ifpizza.todoapp;
 import android.provider.BaseColumns;
 
-//**********Charlie Bein**********
+//**********Charley Bein**********
 //*********Timothy Benson*********
 //**********Joe Maskell***********
 //***********Ben Tipton***********

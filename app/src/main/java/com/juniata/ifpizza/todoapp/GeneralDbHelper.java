@@ -3,7 +3,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-//**********Charlie Bein**********
+//**********Charley Bein**********
 //*********Timothy Benson*********
 //**********Joe Maskell***********
 //***********Ben Tipton***********

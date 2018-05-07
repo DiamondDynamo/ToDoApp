@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-//**********Charlie Bein**********
+//**********Charley Bein**********
 //*********Timothy Benson*********
 //**********Joe Maskell***********
 //***********Ben Tipton***********
@@ -34,6 +34,7 @@ public class ListContents extends AppCompatActivity {
     int ActiveList;
     private SwipeRefreshLayout swipeContainer;
     String m_Text = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

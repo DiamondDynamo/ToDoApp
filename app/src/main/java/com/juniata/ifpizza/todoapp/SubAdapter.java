@@ -9,7 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-//**********Charlie Bein**********
+//**********Charley Bein**********
 //*********Timothy Benson*********
 //**********Joe Maskell***********
 //***********Ben Tipton***********
