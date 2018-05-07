@@ -1,5 +1,4 @@
 package com.juniata.ifpizza.todoapp;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,6 +9,13 @@ import android.widget.CompoundButton;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+//**********Charlie Bein**********
+//*********Timothy Benson*********
+//**********Joe Maskell***********
+//***********Ben Tipton***********
+//***********05/07/2018***********
+
+//**********Subtask Adapter**********
 public class SubAdapter extends ResourceCursorAdapter {
     SubAdapter(Context context, Cursor cursor) {
         super(context,R.layout.sub_item, cursor, 0);
@@ -17,13 +23,15 @@ public class SubAdapter extends ResourceCursorAdapter {
 
     @Override
     public void bindView(View view, Context context, final Cursor cursor) {
-        TextView subText = (TextView) view.findViewById(R.id.subName);
-        CheckBox subCheck = (CheckBox) view.findViewById(R.id.subComplete);
-
+        TextView subText = view.findViewById(R.id.subName);
+        CheckBox subCheck = view.findViewById(R.id.subComplete);
         subText.setText(cursor.getString(cursor.getColumnIndex(SubContract.SubEntry.COLUMN_SUB_NAME)));
+
         if (cursor.getInt(cursor.getColumnIndex(SubContract.SubEntry.COLUMN_COMP_FLAG)) == 0) {
             subCheck.setChecked(false);
-        } else {
+        }
+
+        else {
             subCheck.setChecked(true);
         }
 

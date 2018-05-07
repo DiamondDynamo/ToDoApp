@@ -21,6 +21,7 @@
     <string name="check_box">Check Box</string>
     <string name="title_activity_edit_desc">EditDescActivity</string>
     <string name="action_rename_task">Rename Task</string>
+    <string name="action_rename_list">Rename List</string>
     <string name="no_description">No description</string>
     <string name="no_subtasks">No subtasks found</string>
 </resources>

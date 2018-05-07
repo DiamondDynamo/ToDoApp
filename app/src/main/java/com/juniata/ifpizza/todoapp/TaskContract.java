@@ -1,6 +1,12 @@
 package com.juniata.ifpizza.todoapp;
 import android.provider.BaseColumns;
 
+//**********Charlie Bein**********
+//*********Timothy Benson*********
+//**********Joe Maskell***********
+//***********Ben Tipton***********
+//***********05/07/2018***********
+
 //**********TASK ITEM**********
 public final class TaskContract {
 
