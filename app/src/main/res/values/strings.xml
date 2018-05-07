@@ -18,4 +18,9 @@
     <string name="title_activity_task_details">TaskDetails</string>
 
     <string name="description">Description</string>
+    <string name="check_box">Check Box</string>
+    <string name="title_activity_edit_desc">EditDescActivity</string>
+    <string name="action_rename_task">Rename Task</string>
+    <string name="no_description">No description</string>
+    <string name="no_subtasks">No subtasks found</string>
 </resources>

@@ -6,6 +6,12 @@
     xmlns:context="com.juniata.ifpizza.todoapp.TaskDetails">
 
     <item
+        android:id="@+id/renameTask"
+        android:title="@string/action_rename_task"
+        android:orderInCategory="99"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/deleteTask"
         android:title="@string/action_delete"
         android:orderInCategory="100"

@@ -13,5 +13,6 @@ public class SubContract {
         public static final String COLUMN_TASK_ID = "taskid";
         public static final String COLUMN_SUB_NAME = "subname";
         public static final String COLUMN_COMP_FLAG = "completedflag";
+        public static final String COLUMN_DEL_FLAG = "deletedflag";
     }
 }

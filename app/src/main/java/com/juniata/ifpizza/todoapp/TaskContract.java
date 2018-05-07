@@ -14,5 +14,6 @@ public final class TaskContract {
         public static final String COLUMN_TASK_NAME = "taskname";
         public static final String COLUMN_COMP_FLAG = "completedflag";
         public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_DEL_FLAG = "deletedflag";
     }
 }

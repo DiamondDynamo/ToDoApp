@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class SplashScreenActivity extends AppCompatActivity {
     long listNum;
     static final String LISTNUM = "listnum";
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -34,10 +36,23 @@ public class SplashScreenActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle(R.string.title_activity_splash_screen);
+
         final SharedPreferences sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         refreshDisplay();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.splash_refresh);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshDisplay();
+            }
+        });
+
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.listFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +63,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 listNum = sharedPreferences.getLong("listNumber", 0) + 1;
 
                 values.put(ListContract.ListEntry.COLUMN_LIST_NAME, "List #" + listNum);
+                values.put(ListContract.ListEntry.COLUMN_DEL_FLAG, 0);
 
                 long newRowId = db.insert(ListContract.ListEntry.TABLE_NAME, null, values);
 
@@ -75,6 +91,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         GeneralDbHelper myDbHelper = new GeneralDbHelper(getApplicationContext());
         SQLiteDatabase db = myDbHelper.getWritableDatabase();
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.splash_refresh);
 
         String[] projection = {
                 ListContract.ListEntry.COLUMN_LIST_NAME
@@ -82,10 +99,11 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         String[] bind = {
                 ListContract.ListEntry._ID,
-                ListContract.ListEntry.COLUMN_LIST_NAME
+                ListContract.ListEntry.COLUMN_LIST_NAME,
+                ListContract.ListEntry.COLUMN_DEL_FLAG
         };
 
-        Cursor cursor = db.query(ListContract.ListEntry.TABLE_NAME, bind, null, null, null, null, ListContract.ListEntry._ID + " ASC");
+        Cursor cursor = db.query(ListContract.ListEntry.TABLE_NAME, bind, ListContract.ListEntry.COLUMN_DEL_FLAG + " = 0", null, null, null, ListContract.ListEntry._ID + " ASC");
 
         int [] to = new int[]{R.id.itemName};
 
@@ -112,6 +130,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             }
         });
+
+        swipeContainer.setRefreshing(false);
     }
 
     @Override
